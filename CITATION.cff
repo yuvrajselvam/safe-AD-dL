@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use the models and proofs, please cite it as below."
+authors:
+- family-names: "Selvaraj"
+  given-names: "Yuvaraj"
+  orcid: "https://orcid.org/0000-0003-2184-3069"
+- family-names: "Ahrendt"
+  given-names: "Wolfgang"
+  orcid: "https://orcid.org/0000-0002-5671-2555"
+- family-names: "Fabian"
+  given-names: "Martin"
+  orcid: "https://orcid.org/0000-0003-1287-9748"
+title: "Formal Development of Safe Automated Driving using Differential Dynamic Logic"
+date-released: 2017-12-18
+url: "https://github.com/yuvrajselvam/safe-AD-dL"
