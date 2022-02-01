@@ -1,0 +1,47 @@
+﻿/* Exported from KeYmaera X v4.9.1 */
+
+Theorem "Safe AD dL/02: Model 2 - Conservative"
+  Description "Safety controller with conservative decisions, vCrit >= 0".
+  Title "Model 2 - Conservative".
+
+Functions
+  Real aMinS;    /* maximum braking - safety controller */
+  Real aMinN;    /* maximum braking - nominal controller */
+  Real aMaxN;    /* maximum acceleration - nominal controller */
+  Real T;        /* maximum sampling time */
+End.
+
+ProgramVariables
+  Real x, v, a;         /* position/velocity/acceleration of ego car */
+  Real aN;              /* acceleration from nominal */
+  Real xCrit, vCrit;    /* critical position and critical velocity*/
+  Real tau;               /* clock variable */
+End.
+
+Problem
+  /* init */
+  (v >= 0 & vCrit >=0 & aMinS>0 & aMinN>0 & aMaxN>0 & T > 0 & v^2 - vCrit^2 <= 2*aMinS*(xCrit-x))
+->
+  [
+      {
+        /* env */
+        {xCrit:=*; vCrit:=*; ?(vCrit>=0 & ((v^2-vCrit^2)<=2*aMinS*(xCrit-x)));}
+        {aN:=*; ?(aN<=aMaxN & aN>=-aMinN);}
+        /* ctrl */
+        {
+            {?(((v+(aMaxN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T/2)))); a:=aN;} /* if (ok) */
+        ++
+            {?!(((v+(aMaxN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T/2)))); a:=-aMinS;} /* else */
+        }
+        /* plant */  
+        tau:=0; {x' = v, v' = a, tau' = 1 & tau <= T & v >= 0}
+      }*@invariant(vCrit>=0 & (v^2-vCrit^2<=2*aMinS*(xCrit-x))) /* loop invariant */
+  ]
+  (x>=xCrit -> v<=vCrit)  /* guarantee */                                                     
+End.
+
+Tactic "Safe AD dL/02: Model 2 - Conservative: Proof"
+auto
+End.
+
+End.

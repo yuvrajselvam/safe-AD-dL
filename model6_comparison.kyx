@@ -1,0 +1,33 @@
+﻿/* Exported from KeYmaera X v4.9.1 */
+
+Theorem "Safe AD dL/06: Model 6 - Comparison"
+  Description "Model performance analysis".
+  Title "Model 6 - Comparison".
+
+ProgramVariables  /* program variables may change their value over time */
+  Real x, v, a;   /* position, speed, and acceleration of ego car */
+  Real aN;        /* nominal acceleration */
+  Real xCrit;     /* critical position */
+  Real vCrit;     /* critical velocity */
+  Real aMinS;     /* maximum braking - safety controller */
+  Real aMaxN;     /* maximum acceleration - nominal controller */
+  Real aMinN;     /* maximum braking - nominal controller */
+  Real T.        /* maximum sampling time */
+End.
+
+Problem
+ \forall v,aNom,aMinS,aMinN,aMaxN,T(
+    aMinN>0 & aMaxN>0 & T>0 & v>=0 & aMinN < aMinS & aN>=-aMinN & aN<=aMaxN
+  ->
+   (
+      (( (v*T)+(0.5*aMaxN*T*T)+((v+aMaxN*T)^2/(2*aMinS)) ) >= ( (v*T)+(0.5*aN*T*T)+((v+aN*T)^2/(2*aMinS)) )) & /*msd1 >= msd3 */
+      (( (v*T)+(0.5*aN*T*T)+((v+aN*T)^2/(2*aMinN)) )       >= ( (v*T)+(0.5*aN*T*T)+((v+aN*T)^2/(2*aMinS)) ))   /* msd5 >= msd3 */
+   )
+ )
+End.
+
+Tactic "Safe AD dL/06: Model 6 - Comparison: Proof"
+auto
+End.
+
+End.

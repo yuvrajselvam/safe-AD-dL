@@ -1,0 +1,45 @@
+﻿/* Exported from KeYmaera X v4.9.1 */
+
+Theorem "Safe AD dL/01: Model 1 - Conservative"
+  Description "Safety controller with conservative decisions, vCrit is zero".
+  Title "Model 1 - Conservative".
+
+Definitions       /* function symbols cannot change their value */
+  Real aMinS;     /* maximum braking - safety controller */
+  Real aMaxN;     /* maximum acceleration - nominal controller */
+  Real aMinN;     /* maximum braking - nominal controller */
+  Real T;         /* sampling time */
+End.
+    
+ProgramVariables  /* program variables may change their value over time */
+  Real x;         /* position of the ego car */
+  Real v;         /* velocity of the ego car */
+  Real a;         /* acceleration of the ego car */
+  Real xCrit;     /* critical position xCrit */
+  Real tau;       /* clock variable */
+  Real aN;        /* nominal acceleration */
+End.
+
+
+Problem           /* differential dynamic logic formula */ 
+    v^2<=2*aMinS*(xCrit-x) & v>=0 & aMinS>0 & aMaxN>0 & T>0 & aMinN>0 /* init */
+ -> [
+      {
+        {
+          xCrit:=*;?(v^2<=2*aMinS*(xCrit-x)); aN:=*; ?(-aMinN<=aN & aN<=aMaxN); /* env */                                                
+          {
+                {?((v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))); a:=aN;} /* if (ok) */
+            ++ 
+                {?(!(v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))); a:=-aMinS;} /* else */
+          }
+        }  
+        tau := 0; {x'=v, v'=a, tau'=1 & v>=0 & tau<=T} /* plant */
+      }*@invariant(v^2<=2*aMinS*(xCrit-x)) /* loop invariant */
+    ]  (x>=xCrit -> v=0) /* guarantee */
+End.
+
+Tactic "Safe AD dL/01: Model 1 - Conservative: Proof"
+auto
+End.
+
+End.
