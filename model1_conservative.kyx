@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/01: Model 1 - Conservative"
+Theorem "Safe AD dL v2/01: Model 1 - Conservative"
   Description "Safety controller with conservative decisions, vCrit is zero".
   Title "Model 1 - Conservative".
 
@@ -24,21 +24,35 @@ End.
 Problem           /* differential dynamic logic formula */ 
     v^2<=2*aMinS*(xCrit-x) & v>=0 & aMinS>0 & aMaxN>0 & T>0 & aMinN>0 /* init */
  -> [
-      {
+      { /* env */
+        {{xCrit:=*;?(v^2<=2*aMinS*(xCrit-x));} ++ {?true;}}
+        aN:=*; ?(-aMinN<=aN & aN<=aMaxN);
+         /* crtl */
         {
-          xCrit:=*;?(v^2<=2*aMinS*(xCrit-x)); aN:=*; ?(-aMinN<=aN & aN<=aMaxN); /* env */                                                
-          {
-                {?((v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))); a:=aN;} /* if (ok) */
-            ++ 
-                {?(!(v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))); a:=-aMinS;} /* else */
-          }
-        }  
+            if (((v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5)))) {a:=aN;} else {a:=-aMinS;} 
+        }
         tau := 0; {x'=v, v'=a, tau'=1 & v>=0 & tau<=T} /* plant */
       }*@invariant(v^2<=2*aMinS*(xCrit-x)) /* loop invariant */
     ]  (x>=xCrit -> v=0) /* guarantee */
 End.
 
-Tactic "Safe AD dL/01: Model 1 - Conservative: Proof"
+Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
+todo
+End.
+
+Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
+todo
+End.
+
+Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
+todo
+End.
+
+Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
+todo
+End.
+
+Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
 auto
 End.
 
