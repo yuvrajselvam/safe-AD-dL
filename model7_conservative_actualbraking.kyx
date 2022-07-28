@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/07: Model 7 - Conservative - Actual braking"
+Theorem "Safe AD dL v2/07: Model 7 - Conservative - Actual braking"
   Description "Safety controller with conservative decisions, actual braking, vCrit is zero".
   Title "Model 7 - Conservative - Actual braking".
 
@@ -26,21 +26,16 @@ Problem           /* differential dynamic logic formula */
  -> [
       {
         {
-          xCrit:=*;?(v^2<=2*aMinS*(xCrit-x)); aN:=*; ?(-aMinN<=aN & aN<=aMaxN); /* env*/  
+          {{xCrit:=*;?(v^2<=2*aMinS*(xCrit-x));} ++ {?true;}}
+          aN:=*; ?(-aMinN<=aN & aN<=aMaxN); /* env*/  
           /* ctrl */
           {
-                {?((v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))); a:=aN;} /* if (ok) */
-            ++ 
-                {?(!(2*aMinS*(xCrit-x) >= v^2+(aMaxN+aMinS)*(aMaxN*T^2+2*T*v))); a:=*; ?(-aMinS<=a & a<0 & ((2*a*(xCrit-x)) <= -v^2));} /*else safety controller brakes within a range*/
+              if ((v+aMaxN*T)^2 <= 2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T*0.5))) {a:=aN;} else {a:=*; ?(-aMinS<=a & a<0 & ((2*a*(xCrit-x)) <= -v^2));}
           }
         }  
         tau := 0; {x'=v, v'=a, tau'=1 & v>=0 & tau<=T} /* plant */
       }*@invariant(v^2<=2*aMinS*(xCrit-x)) /* loop invariant */
     ]  (x>=xCrit -> v=0)   /* guarantee */
-End.
-
-Tactic "Safe AD dL/07: Model 7 - Conservative - Actual braking: Proof"
-auto
 End.
 
 End.

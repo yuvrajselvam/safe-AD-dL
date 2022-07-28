@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/03: Model 3 - Permissive"
+Theorem "Safe AD dL v2/03: Model 3 - Permissive"
   Description "Safety controller with permissive decisions, vCrit is zero".
   Title "Model 3 - Permissive".
 
@@ -26,7 +26,8 @@ Problem           /* differential dynamic logic formula */
  -> [
       {
         {
-         xCrit:=*;?(v^2<=2*aMinS*(xCrit-x)); aN:=*; ?(-aMinN<=aN & aN<=aMaxN);    /* env */                                            
+         {{xCrit:=*;?(v^2<=2*aMinS*(xCrit-x));} ++ {?true;}} 
+         aN:=*; ?(-aMinN<=aN & aN<=aMaxN);    /* env */                                            
           {
              {?(v+aN*T >=0);
                 {
@@ -48,10 +49,6 @@ Problem           /* differential dynamic logic formula */
         tau := 0; {x'=v, v'=a, tau'=1 & v>=0 & tau<=T}
       }*@invariant(v^2<=2*aMinS*(xCrit-x)) /* loop invariant */
     ] (x>=xCrit -> v=0) /* guarantee */ 
-End.
-
-Tactic "Safe AD dL/03: Model 3 - Permissive: Proof"
-auto
 End.
 
 End.

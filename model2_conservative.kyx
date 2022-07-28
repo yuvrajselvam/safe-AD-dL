@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/02: Model 2 - Conservative"
+Theorem "Safe AD dL v2/02: Model 2 - Conservative"
   Description "Safety controller with conservative decisions, vCrit >= 0".
   Title "Model 2 - Conservative".
 
@@ -25,23 +25,17 @@ Problem
   [
       {
         /* env */
-        {xCrit:=*; vCrit:=*; ?(vCrit>=0 & ((v^2-vCrit^2)<=2*aMinS*(xCrit-x)));}
+        {{xCrit:=*; vCrit:=*; ?(vCrit>=0 & ((v^2-vCrit^2)<=2*aMinS*(xCrit-x)));} ++ ?true;}
         {aN:=*; ?(aN<=aMaxN & aN>=-aMinN);}
         /* ctrl */
         {
-            {?(((v+(aMaxN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T/2)))); a:=aN;} /* if (ok) */
-        ++
-            {?!(((v+(aMaxN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T/2)))); a:=-aMinS;} /* else */
+            if (((v+(aMaxN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aMaxN*T*T/2)))) {a:=aN;} else {a:=-aMinS;}
         }
         /* plant */  
         tau:=0; {x' = v, v' = a, tau' = 1 & tau <= T & v >= 0}
       }*@invariant(vCrit>=0 & (v^2-vCrit^2<=2*aMinS*(xCrit-x))) /* loop invariant */
   ]
   (x>=xCrit -> v<=vCrit)  /* guarantee */                                                     
-End.
-
-Tactic "Safe AD dL/02: Model 2 - Conservative: Proof"
-auto
 End.
 
 End.

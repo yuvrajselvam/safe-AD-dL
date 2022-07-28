@@ -36,24 +36,4 @@ Problem           /* differential dynamic logic formula */
     ]  (x>=xCrit -> v=0) /* guarantee */
 End.
 
-Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
-todo
-End.
-
-Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
-todo
-End.
-
-Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
-todo
-End.
-
-Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
-todo
-End.
-
-Tactic "Safe AD dL v2/01: Model 1 - Conservative: Proof"
-auto
-End.
-
 End.

@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/04: Model 4 - Permissive"
+Theorem "Safe AD dL v2/04: Model 4 - Permissive"
   Description "Safety controller with permissive decisions, vCrit >= 0".
   Title "Model 4 - Permissive".
 
@@ -29,7 +29,7 @@ Problem
   [
     {
         /* env */
-        {xCrit:=*; vCrit:=*; ?(vCrit>=0 & ((v^2-vCrit^2)<=2*aMinS*(xCrit-x)));} 
+        {{xCrit:=*; vCrit:=*; ?(vCrit>=0 & ((v^2-vCrit^2)<=2*aMinS*(xCrit-x)));} ++ {?true;}}
         {aN:=*;?(aN>=-aMinN & aN<=aMaxN);}
         /* ctrl */    
         {
@@ -53,10 +53,6 @@ Problem
     }*@invariant(vCrit>=0 & v^2-vCrit^2<=2*aMinS*(xCrit-x)) /* loop invariant */
   ]
   (x>=xCrit -> v<=vCrit)  /* guarantee */
-End.
-
-Tactic "Safe AD dL/04: Model 4 - Permissive: Proof"
-auto
 End.
 
 End.
