@@ -33,20 +33,14 @@ Problem
         {aN:=*;?(aN>=-aMinN & aN<=aMaxN);}
         /* ctrl */    
         {
-            {?(v+aN*T >= 0); 
+            if (v+aN*T >= 0)
                 {
-                    {?(((v+(aN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aN*T*T/2)))); a:=aN;} /* if (ok) */
-                  ++ 
-                    {?(!(((v+(aN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aN*T*T/2))))); a:=-aMinS;} /* else */        
+                    if (((v+(aN*T))^2-vCrit^2)<=(2*aMinS*(xCrit-x-(v*T)-(aN*T*T/2)))) {a:=aN;} else {a:=-aMinS;}    
                 }
-            }
-        ++
-            {?(v+aN*T < 0); 
+            else
                 {  
-                    ?((-v^2/(2*aN))<=(xCrit-x)); a:=aN;   /* if (ok) */
-                 ++ ?!((-v^2/(2*aN))<=(xCrit-x)); a:=-aMinS; /* else */
+                    if ((-v^2/(2*aN))<=(xCrit-x)) {a:=aN;} else {a:=-aMinS;}
                 }
-            }
         }
         /* plant */ 
         tau:=0; {x' = v, v' = a, tau' = 1 & tau <= T & v >= 0}
@@ -54,5 +48,7 @@ Problem
   ]
   (x>=xCrit -> v<=vCrit)  /* guarantee */
 End.
+
+
 
 End.
