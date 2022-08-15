@@ -1,6 +1,6 @@
-﻿/* Exported from KeYmaera X v4.9.1 */
+﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL/06: Model 6 - Comparison"
+Theorem "Safe AD dL v3/06: Model 6 - Comparison"
   Description "Model performance analysis".
   Title "Model 6 - Comparison".
 
@@ -26,8 +26,12 @@ Problem
  )
 End.
 
-Tactic "Safe AD dL/06: Model 6 - Comparison: Proof"
+Tactic "Safe AD dL v3/06: Model 6 - Comparison: Automated Proof"
 auto
+End.
+
+Tactic "Safe AD dL v3/06: Model 6 - Comparison: Manual Proof"
+QE
 End.
 
 End.
