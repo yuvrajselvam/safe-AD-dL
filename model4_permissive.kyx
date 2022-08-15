@@ -1,6 +1,6 @@
 ﻿/* Exported from KeYmaera X v4.9.9 */
 
-Theorem "Safe AD dL v2/04: Model 4 - Permissive"
+Theorem "Safe AD dL v3/04: Model 4 - Permissive"
   Description "Safety controller with permissive decisions, vCrit >= 0".
   Title "Model 4 - Permissive".
 
@@ -49,6 +49,157 @@ Problem
   (x>=xCrit -> v<=vCrit)  /* guarantee */
 End.
 
+Tactic "Safe AD dL v3/04: Model 4 - Permissive: Automated Proof"
+auto
+End.
 
+Tactic "Safe AD dL v3/04: Model 4 - Permissive: Manual Proof"
+implyR('R=="v>=0&vCrit>=0&aMinS()>0&T()>=0&aMinN()>0&aMaxN()>0&v^2-vCrit^2<=2*aMinS()*(xCrit-x)->[{{xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);++?true;}{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}}*](x>=xCrit->v<=vCrit)");
+loop("vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x)", 'R=="[{{xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);++?true;}{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}}*](x>=xCrit->v<=vCrit)"); <(
+  "Init":
+    QE,
+  "Post":
+    QE,
+  "Step":
+    composeb('R=="[{xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);++?true;}{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+    choiceb('R=="[xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);++?true;][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+    andR('R=="[xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?true;][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+      "[xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+        composeb('R=="[xCrit:=*;vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        randomb('R=="[xCrit:=*;][vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        allR('R=="\forall xCrit [vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[vCrit:=*;?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        randomb('R=="[vCrit:=*;][?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        allR('R=="\forall vCrit [?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        testb('R=="[?vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x);][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        implyR('R=="vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x)->[{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[aN:=*;?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        randomb('R=="[aN:=*;][?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        allR('R=="\forall aN [?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        testb('R=="[?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        implyR('R=="aN>=-aMinN()&aN<=aMaxN()->[{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        choiceb('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        andR('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+          "[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+            composeb('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            testb('R=="[?v+aN*T()>=0;][?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            implyR('R=="v+aN*T()>=0->[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            choiceb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            andR('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+              "[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);][a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2)->[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE,
+              "[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);][a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2)->[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE
+            ),
+          "[?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+            composeb('R=="[?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            testb('R=="[?!v+aN*T()>=0;][?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            implyR('R=="!v+aN*T()>=0->[?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            choiceb('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            andR('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+              "[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?-v^2/(2*aN)<=xCrit-x;][a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="-v^2/(2*aN)<=xCrit-x->[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE,
+              "[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();]#[tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))#");
+                composeb('R=="[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;][{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?!-v^2/(2*aN)<=xCrit-x;][a:=-aMinS();][tau:=0;][{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="!-v^2/(2*aN)<=xCrit-x->[a:=-aMinS();][tau:=0;][{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=-aMinS();][tau:=0;][{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE
+            )
+        ),
+      "[?true;][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+        testb('R=="[?true;][{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        trueImply('R=="true->[{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[{aN:=*;?aN>=-aMinN()&aN<=aMaxN();}{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[aN:=*;?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        randomb('R=="[aN:=*;][?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        allR('R=="\forall aN [?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        testb('R=="[?aN>=-aMinN()&aN<=aMaxN();][{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        implyR('R=="aN>=-aMinN()&aN<=aMaxN()->[{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        composeb('R=="[{?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}}tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        choiceb('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}++?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+        andR('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+          "[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+            composeb('R=="[?v+aN*T()>=0;{?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            testb('R=="[?v+aN*T()>=0;][?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            implyR('R=="v+aN*T()>=0->[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            choiceb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;++?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            andR('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+              "[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);][a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2)->[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE,
+              "[?!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                notLessEqual('R=="[?#!(v+aN*T())^2-vCrit^2<=2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2)#;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[?(v+aN*T())^2-vCrit^2>2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?(v+aN*T())^2-vCrit^2>2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2);][a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="(v+aN*T())^2-vCrit^2>2*aMinS()*(xCrit-x-v*T()-aN*T()*T()/2)->[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE
+            ),
+          "[?!v+aN*T()>=0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+            notGreaterEqual('R=="[?#!v+aN*T()>=0#;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            composeb('R=="[?v+aN*T() < 0;{?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();}][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            testb('R=="[?v+aN*T() < 0;][?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            implyR('R=="v+aN*T() < 0->[?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            choiceb('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;++?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+            andR('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))&[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))"); <(
+              "[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?-v^2/(2*aN)<=xCrit-x;a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?-v^2/(2*aN)<=xCrit-x;][a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="-v^2/(2*aN)<=xCrit-x->[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=aN;][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=aN,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE,
+              "[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))":
+                composeb('R=="[?!-v^2/(2*aN)<=xCrit-x;a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                testb('R=="[?!-v^2/(2*aN)<=xCrit-x;][a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                implyR('R=="!-v^2/(2*aN)<=xCrit-x->[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[a:=-aMinS();][tau:=0;{x'=v,v'=a,tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                composeb('R=="[tau:=0;{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                assignb('R=="[tau:=0;][{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                solve('R=="[{x'=v,v'=-aMinS(),tau'=1&tau<=T()&v>=0}](vCrit>=0&v^2-vCrit^2<=2*aMinS()*(xCrit-x))");
+                QE
+            )
+        )
+    )
+)
+End.
 
 End.
